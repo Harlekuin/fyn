@@ -8,4 +8,6 @@ analysis = fyn(price_df=price_data)
 analysis.key_metrics()
 
 print(analysis.price_df)
-print(analysis.return_data())
+print(analysis.return_df)
+
+print(analysis.covariance_matrix())

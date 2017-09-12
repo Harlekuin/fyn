@@ -12,6 +12,8 @@ class Analysis:
         self.start_date = price_df.index[0]
         self.end_date = price_df.index[-1]
 
+        self.return_df = self.return_data()
+
     def key_metrics(self):
         """ used to print a summary of the data of the analysis """
 
@@ -23,12 +25,19 @@ class Analysis:
         print("{asset} assets analysed\n".format(asset=len(self.price_df.columns)))
 
         for asset in self.price_df.columns:
-            print(asset + "\n")
+            print(asset)
             print("Start Price: {price}".format(price=self.price_df.loc[self.start_date, asset]))
             print("End Price: {price}\n\n".format(price=self.price_df.loc[self.end_date, asset]))
 
+            # add income and returns
+
 
     def return_data(self):
-        """ create the returns dataframe """
+        """ create the returns dataframe in percent """
 
-        return self.price_df.diff()
+        return self.price_df.pct_change() * 100
+
+    def covariance_matrix(self):
+        """ covariance matrix """
+
+        return self.return_df.cov()
