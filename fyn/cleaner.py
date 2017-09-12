@@ -1,5 +1,5 @@
 """ check and clean dataframes """
-from .config import FILL_MISSING_PRICE
+from .config import FILL_MISSING_PRICES
 import pandas as pd
 
 

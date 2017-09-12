@@ -14,6 +14,7 @@ class Analysis:
 
         self.return_df = self.return_data()
 
+
     def key_metrics(self):
         """ used to print a summary of the data of the analysis """
 
