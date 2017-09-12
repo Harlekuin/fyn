@@ -3,10 +3,10 @@ from .config import FILL_MISSING_PRICE
 import pandas as pd
 
 
-def clean_income_data(price_df):
+def clean_price_data(price_df):
     """clean price data"""
 
-    assert isinstance(price_df, pd.dataframe)
+    assert isinstance(price_df, pd.DataFrame)
 
     """
     TODO:
@@ -21,7 +21,7 @@ def clean_income_data(price_df):
 def clean_income_data(income_df):
     """clean income data"""
 
-    assert isinstance(income_df, pd.dataframe)
+    assert isinstance(income_df, pd.DataFrame)
 
     """
     TODO:
