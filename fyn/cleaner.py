@@ -12,7 +12,6 @@ def clean_income_data(price_df):
     TODO:
         check index for correct datetimes
         fill in missing values
-
     """
 
     return price_df
@@ -27,7 +26,6 @@ def clean_income_data(income_df):
     """
     TODO:
         check index for correct datetimes
-
     """
 
     return income_df
