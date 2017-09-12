@@ -28,7 +28,7 @@ class Analysis:
             print("End Price: {price}\n\n".format(price=self.price_df.loc[self.end_date, asset]))
 
 
-    def return_df(self):
+    def return_data(self):
         """ create the returns dataframe """
 
-        return self.price_df
+        return self.price_df.diff()
