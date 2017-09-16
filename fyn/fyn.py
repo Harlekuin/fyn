@@ -26,11 +26,13 @@ def fyn(price_df, income_df=None):
     if income_df:
         income_df = load_income_data(income_df)
 
+
     # clean dataframes
     price_df = clean_price_data(price_df)
 
     if income_df:
         income_df = clean_income_data(income_df)
+
 
     # transform dataframes
     price_df = transform_price_data(price_df)
