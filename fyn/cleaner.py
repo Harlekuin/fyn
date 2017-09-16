@@ -19,10 +19,10 @@ def clean_price_data(price_df):
     print(price_df)
 
     # date index checking
-    # if not check_weekends(price_df.index.values):
-    #     print("Weekends present in data!")
+    if not check_weekends(price_df.index.values):
+        print("Weekends present in data!")
 
-    # check_date_existance(date_list, weekend=False, start_date=None, end_date=None)
+    # check_date_existance(price_df.index.values, start_date=None, end_date=None)
 
     return price_df
 
@@ -40,16 +40,23 @@ def clean_income_data(income_df):
 
     return income_df
 
+
 def check_weekends(date_list):
     """ given a list of dates, check if any are weekends """
 
-    for my_date in date_list:
-        if calendar.day_name[my_date.weekday()] in ['Saturday', 'Sunday']:
+    # hacky way
+    temp_df = pd.DataFrame(index=date_list)
+    temp_df['weekday'] = temp_df.index.weekday
+    weekdays = temp_df['weekday'].values
+
+    for my_day in weekdays:
+        if calendar.day_name[my_day] in ['Saturday', 'Sunday']:
             return False
 
     return True
 
-def check_date_existance(date_list, weekend=False, start_date=None, end_date=None):
+
+def check_date_existance(date_list, start_date=None, end_date=None):
     """ given a list of dates, check if all exist that should
     weekend bool: whether weekends should be included
     """
@@ -62,18 +69,18 @@ def check_date_existance(date_list, weekend=False, start_date=None, end_date=Non
         end_Date = max(date_list)
 
     # create the list of correct dates
-    delta = end_date - start_Date
+    delta = end_date - start_date
 
     correct_date_list = []
 
     for i in range(delta.days + 1):
         correct_date_list.append(d1 + timedelta(days=i))
 
-    if not weekend:
+    """if not weekend:
         correct_date_list = [
             my_date for my_date in correct_date_list
-            if not calendar.day_name[my_date.weekday()] in ['Saturday', 'Sunday']
-        ]
+            if not calendar.day_name[my_date.dt.dayofweek] in ['Saturday', 'Sunday']
+        ]"""
 
 
     # find differences in the date lists
