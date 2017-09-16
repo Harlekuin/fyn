@@ -12,6 +12,14 @@ def fyn(price_df, income_df=None):
     full process for the analysis
     """
 
+    # save copies of the original raw data
+    raw_price_df = price_df.copy(deep=True)
+    if income_df:
+        raw_income_df = income_df.copy(deep=True)
+    else:
+        raw_income_df = None
+
+
     # load dataframes
     price_df = load_price_data(price_df)
 
