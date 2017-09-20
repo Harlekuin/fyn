@@ -22,7 +22,7 @@ def clean_price_data(price_df):
     if not check_weekends(price_df.index.values):
         print("Weekends present in data!")
 
-    # check_date_existance(price_df.index.values, start_date=None, end_date=None)
+    check_date_existance(price_df.index.values, start_date=None, end_date=None)
 
     return price_df
 
@@ -56,7 +56,7 @@ def check_weekends(date_list):
     return True
 
 
-def check_date_existance(date_list, start_date=None, end_date=None):
+def check_date_existance(date_list, start_date=None, end_date=None, weekend=False):
     """ given a list of dates, check if all exist that should
     weekend bool: whether weekends should be included
     """
@@ -66,31 +66,47 @@ def check_date_existance(date_list, start_date=None, end_date=None):
         start_date = min(date_list)
 
     if not end_date:
-        end_Date = max(date_list)
+        end_date = max(date_list)
 
-    # create the list of correct dates
-    delta = end_date - start_date
+    date_range = pd.date_range(start=start_date, end=end_date)
 
-    correct_date_list = []
+    cor_df_t = pd.DataFrame(index=date_range)
 
-    for i in range(delta.days + 1):
-        correct_date_list.append(d1 + timedelta(days=i))
+    cor_df_t['weekday'] = cor_df_t.index.weekday
 
-    """if not weekend:
-        correct_date_list = [
-            my_date for my_date in correct_date_list
-            if not calendar.day_name[my_date.dt.dayofweek] in ['Saturday', 'Sunday']
-        ]"""
+    
+    if not weekend:
+        # remove weekend values
+        wkday = lambda x: calendar.day_name[x]
+
+        cor_df_t['weekday_name'] = cor_df_t['weekday'].apply(wkday)
+
+
+        # TODO: combine these
+        cor_df_t.drop(cor_df_t[cor_df_t['weekday_name'] == 'Saturday'].index, inplace=True)
+        cor_df_t.drop(cor_df_t[cor_df_t['weekday_name'] == 'Sunday'].index, inplace=True)
+
+    print(cor_df_t)
 
 
     # find differences in the date lists
     sup = set(date_list)
-    correct = set(correct_date_list)
+    correct = set(cor_df_t.index.values)
+
+    print(sup)
+    print('\n-----\n')
+    print(correct)
+
+    input()
 
     print("The following dates were supplied but incorrect:\n")
     for my_date in list(sup - correct):
-        print(my_date.date.today())
+        # print(my_date.date.today())
+        print(my_date)
 
     print("The following dates were not supplied:\n")
     for my_date in list(correct - sup):
-        print(my_date.date.today())
+        # print(my_date.date.today())
+        print(my_date)
+
+    input()
