@@ -96,9 +96,7 @@ def check_date_existance(date_list, start_date=None, end_date=None, weekend=Fals
     print(sup)
     print('\n-----\n')
     print(correct)
-
-    input()
-
+    
     print("The following dates were supplied but incorrect:\n")
     for my_date in list(sup - correct):
         # print(my_date.date.today())

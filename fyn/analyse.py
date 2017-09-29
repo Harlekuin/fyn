@@ -19,7 +19,7 @@ class Analysis:
         """ used to print a summary of the data of the analysis """
 
         print("\n--- Key Metrics of Analysis ---\n")
-
+        
         print("Start Date = {date}".format(date=self.start_date))
         print("End Date = {date}".format(date=self.end_date))
 
