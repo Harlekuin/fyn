@@ -22,6 +22,8 @@ def clean_price_data(price_df):
     if not check_weekends(price_df.index.values):
         print("Weekends present in data!")
 
+    price_df = remove_weekends(price_df)
+
     check_date_existance(price_df.index.values, start_date=None, end_date=None)
 
     return price_df
@@ -61,8 +63,8 @@ def remove_weekends(df):
     # TODO: assert index is datetime
 
     df['weekday'] = df.index.weekday
-    df = df[df['weekday'].isin(['Saturday', 'Sunday'])]
-    df.drop('weekday', inplace=True)
+    df = df[-df['weekday'].isin([5, 6])]
+    df = df.drop('weekday', axis=1)
 
     return df
 
