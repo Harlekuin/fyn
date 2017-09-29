@@ -55,6 +55,17 @@ def check_weekends(date_list):
 
     return True
 
+def remove_weekends(df):
+    """ remove weekend records from supplied dataframe """
+
+    # TODO: assert index is datetime
+
+    df['weekday'] = df.index.weekday
+    df = df[df['weekday'].isin(['Saturday', 'Sunday'])]
+    df.drop('weekday', inplace=True)
+
+    return df
+
 
 def check_date_existance(date_list, start_date=None, end_date=None, weekend=False):
     """ given a list of dates, check if all exist that should
@@ -74,7 +85,7 @@ def check_date_existance(date_list, start_date=None, end_date=None, weekend=Fals
 
     cor_df_t['weekday'] = cor_df_t.index.weekday
 
-    
+
     if not weekend:
         # remove weekend values
         wkday = lambda x: calendar.day_name[x]
@@ -96,7 +107,7 @@ def check_date_existance(date_list, start_date=None, end_date=None, weekend=Fals
     print(sup)
     print('\n-----\n')
     print(correct)
-    
+
     print("The following dates were supplied but incorrect:\n")
     for my_date in list(sup - correct):
         # print(my_date.date.today())
@@ -106,5 +117,3 @@ def check_date_existance(date_list, start_date=None, end_date=None, weekend=Fals
     for my_date in list(correct - sup):
         # print(my_date.date.today())
         print(my_date)
-
-    input()
