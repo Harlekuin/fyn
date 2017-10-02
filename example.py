@@ -1,7 +1,7 @@
 from fyn import fyn
 import pandas as pd
 
-price_data = pd.read_csv("pricedata.csv", index_col=0)
+price_data = pd.read_csv(".\examples\example_data.csv", index_col=0)
 
 analysis = fyn(price_df=price_data)
 
