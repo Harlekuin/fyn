@@ -24,7 +24,9 @@ def clean_price_data(price_df):
 
     price_df = remove_weekends(price_df)
 
-    check_date_existance(price_df.index.values, start_date=None, end_date=None)
+    # check_date_existance(price_df.index.values, start_date=None, end_date=None)
+
+    price_df = interpolate_missing_dates(price_df)
 
     return price_df
 
@@ -119,3 +121,18 @@ def check_date_existance(date_list, start_date=None, end_date=None, weekend=Fals
     for my_date in list(correct - sup):
         # print(my_date.date.today())
         print(my_date)
+
+def interpolate_missing_dates(df):
+    """ add the correct datetime index and pad """
+
+    # just to make sure
+    df.index = pd.to_datetime(df.index)
+
+    start_date = df.index[0]
+    end_date = df.index[-1]
+
+    correct_date_range = pd.date_range(start=start_date, end=end_date, freq='B')
+
+    df = df.reindex(correct_date_range, method='ffill')
+
+    return df
