@@ -28,7 +28,11 @@ class Analysis:
         for asset in self.price_df.columns:
             print('-- ' + asset + ' --')
             print("Start Price: ${price:.2f}".format(price=self.price_df.loc[self.start_date, asset]))
-            print("End Price: ${price:.2f}\n\n".format(price=self.price_df.loc[self.end_date, asset]))
+            print("End Price: ${price:.2f}\n".format(price=self.price_df.loc[self.end_date, asset]))
+
+            if asset in self.income_df.columns:
+                print("Total Income for " + asset + ":")
+                print("${income:.2f}\n".format(income=self.income_df[asset].sum()))
 
             # add income and returns
 

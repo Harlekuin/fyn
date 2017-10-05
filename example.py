@@ -13,8 +13,14 @@ analysis = fyn(price_df=price_data, income_df=income_data)
 
 analysis.key_metrics()
 
+print("\nprice dataframe:")
 print(analysis.price_df)
+
+print("\nincome dataframe:")
 print(analysis.income_df)
+
+print("\nreturn dataframe:")
 print(analysis.return_df)
 
+print("\ncovariance matrix:")
 print(analysis.covariance_matrix())
