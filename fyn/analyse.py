@@ -6,7 +6,7 @@ class Analysis:
 
     def __init__(self, price_df, income_df=None):
         self.price_df = price_df
-        if income_df:
+        if income_df is not None:
             self.income_df = income_df
 
         self.start_date = price_df.index[0]

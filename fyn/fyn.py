@@ -14,7 +14,7 @@ def fyn(price_df, income_df=None):
 
     # save copies of the original raw data
     raw_price_df = price_df.copy(deep=True)
-    if income_df:
+    if income_df is not None:
         raw_income_df = income_df.copy(deep=True)
     else:
         raw_income_df = None
@@ -23,21 +23,21 @@ def fyn(price_df, income_df=None):
     # load dataframes
     price_df = load_price_data(price_df)
 
-    if income_df:
+    if income_df is not None:
         income_df = load_income_data(income_df)
 
 
     # clean dataframes
     price_df = clean_price_data(price_df)
 
-    if income_df:
+    if income_df is not None:
         income_df = clean_income_data(income_df)
 
 
     # transform dataframes
     price_df = transform_price_data(price_df)
 
-    if income_df:
+    if income_df is not None:
         income_df = transform_income_data(income_df)
 
     return Analysis(price_df=price_df, income_df=income_df)

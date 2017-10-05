@@ -40,7 +40,9 @@ def clean_income_data(income_df):
     """
     TODO:
         check index for correct datetimes
+        if income is on a weekend, move to next business day
     """
+
 
     return income_df
 
