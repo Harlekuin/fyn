@@ -23,12 +23,12 @@ class Analysis:
         print("Start Date = {date}".format(date=self.start_date))
         print("End Date = {date}".format(date=self.end_date))
 
-        print("{asset} assets analysed\n".format(asset=len(self.price_df.columns)))
+        print("\n{asset} assets analysed\n".format(asset=len(self.price_df.columns)))
 
         for asset in self.price_df.columns:
-            print(asset)
-            print("Start Price: {price}".format(price=self.price_df.loc[self.start_date, asset]))
-            print("End Price: {price}\n\n".format(price=self.price_df.loc[self.end_date, asset]))
+            print('-- ' + asset + ' --')
+            print("Start Price: ${price:.2f}".format(price=self.price_df.loc[self.start_date, asset]))
+            print("End Price: ${price:.2f}\n\n".format(price=self.price_df.loc[self.end_date, asset]))
 
             # add income and returns
 
