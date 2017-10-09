@@ -1,6 +1,7 @@
 """load price data into a dataframe, and pass to load_price_data"""
 
 import pandas as pd
+import numpy as np
 
 def load_price_data(price_df):
     """
@@ -19,3 +20,37 @@ def load_income_data(income_df):
     income_df.index = pd.to_datetime(income_df.index)
 
     return income_df
+
+
+
+def load_return_data(price_df, income_df=None):
+    """
+    load a dataframe from price and income data.
+    returns a dataframe of returns
+    if income data is supplied, the returns are modified
+    """
+
+    return_df = price_df.pct_change() * 100
+
+    if income_df is not None:
+
+        for asset in income_df.columns:
+
+            if asset in price_df.columns:
+
+                for date, income_amt in income_df.iterrows():
+
+                    if not pd.isnull(income_amt[asset]):
+
+                        # get the price at the date of the income payment
+                        price = price_df.loc[date, asset]
+
+                        # find the integer location of the previous index
+                        previous_day_int = price_df.index.get_loc(date) - 1
+                        previous_days_price = price_df[asset].iloc[previous_day_int]
+
+                        actual_return = (income_amt[asset] + price - previous_days_price) / previous_days_price * 100
+
+                        return_df.loc[date, asset] = actual_return
+
+        return return_df

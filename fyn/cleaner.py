@@ -16,15 +16,13 @@ def clean_price_data(price_df):
         fill in missing values
     """
 
-    print(price_df)
-
     # date index checking
     if not check_weekends(price_df.index.values):
-        print("Weekends present in data!")
+        print("\nWeekends present in data, removing...")
 
     price_df = remove_weekends(price_df)
 
-    check_date_existance(price_df.index.values, start_date=None, end_date=None)
+    price_df = interpolate_missing_dates(price_df)
 
     return price_df
 
@@ -38,7 +36,9 @@ def clean_income_data(income_df):
     """
     TODO:
         check index for correct datetimes
+        if income is on a weekend, move to next business day
     """
+
 
     return income_df
 
@@ -119,3 +119,18 @@ def check_date_existance(date_list, start_date=None, end_date=None, weekend=Fals
     for my_date in list(correct - sup):
         # print(my_date.date.today())
         print(my_date)
+
+def interpolate_missing_dates(df):
+    """ add the correct datetime index and pad """
+
+    # just to make sure
+    df.index = pd.to_datetime(df.index)
+
+    start_date = df.index[0]
+    end_date = df.index[-1]
+
+    correct_date_range = pd.date_range(start=start_date, end=end_date, freq='B')
+
+    df = df.reindex(correct_date_range, method='ffill')
+
+    return df
