@@ -12,10 +12,8 @@ class Analysis:
         self.start_date = price_df.index[0]
         self.end_date = price_df.index[-1]
 
-        # self.return_df = self.return_data()
-
         self.return_df = load_return_data(self.price_df, self.income_df)
-        
+
 
     def key_metrics(self):
         """ used to print a summary of the data of the analysis """

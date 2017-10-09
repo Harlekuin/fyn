@@ -16,15 +16,11 @@ def clean_price_data(price_df):
         fill in missing values
     """
 
-    print(price_df)
-
     # date index checking
     if not check_weekends(price_df.index.values):
-        print("Weekends present in data!")
+        print("\nWeekends present in data, removing...")
 
     price_df = remove_weekends(price_df)
-
-    # check_date_existance(price_df.index.values, start_date=None, end_date=None)
 
     price_df = interpolate_missing_dates(price_df)
 
