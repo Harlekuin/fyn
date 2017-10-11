@@ -135,9 +135,22 @@ def interpolate_missing_dates(df):
 
     return df
 
-def check_start_data_with_price_data(price_df, asset_dict):
+def start_assets_vs_price_data(price_df, asset_dict):
     if len(set(list(asset_dict.keys())) - set(price_df.columns)) > 0:
         print("There is at least one starting asset with no price data:")
         for asset in set(list(asset_dict.keys())) - set(price_df.columns):
             print("removing {asset}".format(asset=asset))
             del asset_dict[asset]
+
+
+def start_date_vs_price_data(price_df, start_date):
+    if start_date in price_df.index:
+        print("start date found in the price data")
+        return start_date
+
+    if start_date > min(price_df.index).date() and start_date < max(price_df.index).date():
+        print("start date without price data but not an actual index, modifying")
+        return min(i for i in price_df.index if i.date() > start_date)
+
+    print("invalid start date, exiting")
+    exit()
