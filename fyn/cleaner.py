@@ -134,3 +134,10 @@ def interpolate_missing_dates(df):
     df = df.reindex(correct_date_range, method='ffill')
 
     return df
+
+def check_start_data_with_price_data(price_df, asset_dict):
+    if len(set(list(asset_dict.keys())) - set(price_df.columns)) > 0:
+        print("There is at least one starting asset with no price data:")
+        for asset in set(list(asset_dict.keys())) - set(price_df.columns):
+            print("removing {asset}".format(asset=asset))
+            del asset_dict[asset]
