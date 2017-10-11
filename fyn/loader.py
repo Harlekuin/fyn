@@ -2,6 +2,7 @@
 
 import pandas as pd
 import numpy as np
+import yaml
 
 def load_price_data(price_df):
     """
@@ -20,7 +21,6 @@ def load_income_data(income_df):
     income_df.index = pd.to_datetime(income_df.index)
 
     return income_df
-
 
 
 def load_return_data(price_df, income_df=None):
@@ -54,3 +54,12 @@ def load_return_data(price_df, income_df=None):
                         return_df.loc[date, asset] = actual_return
 
         return return_df
+
+def load_start_data(start_yaml):
+    """
+    load a yaml string with a start date and asset units held on that date.
+    Can be nothing.
+    """
+
+    start_yaml = yaml.load(start_yaml)
+    return start_yaml['date'], start_yaml['assets']
