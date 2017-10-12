@@ -2,6 +2,7 @@
 
 import pandas as pd
 import numpy as np
+import yaml
 
 def load_price_data(price_df):
     """
@@ -20,7 +21,6 @@ def load_income_data(income_df):
     income_df.index = pd.to_datetime(income_df.index)
 
     return income_df
-
 
 
 def load_return_data(price_df, income_df=None):
@@ -54,3 +54,34 @@ def load_return_data(price_df, income_df=None):
                         return_df.loc[date, asset] = actual_return
 
         return return_df
+
+def load_start_data(start_yaml):
+    """
+    load a yaml string with a start date and asset units held on that date.
+    Can be nothing.
+    """
+
+    start_yaml = yaml.load(start_yaml)
+    return start_yaml['date'], start_yaml['assets']
+
+
+def value_dataframe(price_df, start_date, asset_dict):
+    """
+    return a dataframe tracking the total value of the portfolio using
+    prices and units through the dates
+    """
+
+    assert('portfolio_value' not in price_df.columns)
+
+    value_df = price_df.copy()
+
+    # remove dates earlier than the start date
+    value_df = value_df[start_date:]
+
+    # multiply by the starting units
+    value_df = value_df.mul(pd.Series(asset_dict), axis=1)
+
+    # add the a portfolio value column
+    value_df['portfolio_value'] = value_df.sum(axis=1)
+
+    return value_df
