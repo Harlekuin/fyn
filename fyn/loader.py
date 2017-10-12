@@ -63,3 +63,25 @@ def load_start_data(start_yaml):
 
     start_yaml = yaml.load(start_yaml)
     return start_yaml['date'], start_yaml['assets']
+
+
+def value_dataframe(price_df, start_date, asset_dict):
+    """
+    return a dataframe tracking the total value of the portfolio using
+    prices and units through the dates
+    """
+
+    assert('portfolio_value' not in price_df.columns)
+
+    value_df = price_df.copy()
+
+    # remove dates earlier than the start date
+    value_df = value_df[start_date:]
+
+    # multiply by the starting units
+    value_df = value_df.mul(pd.Series(asset_dict), axis=1)
+
+    # add the a portfolio value column
+    value_df['portfolio_value'] = value_df.sum(axis=1)
+
+    return value_df

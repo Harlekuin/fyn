@@ -20,6 +20,12 @@ start_date = fyn.cleaner.start_date_vs_price_data(price_data, start_date)
 
 print("The final start date is:")
 print(start_date)
+
+value_df = fyn.loader.value_dataframe(price_data, start_date, asset_dict)
+
+print("The portfolio value dataframe:")
+print(value_df)
+
 exit()
 
 
