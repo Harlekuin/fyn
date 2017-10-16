@@ -154,3 +154,12 @@ def start_date_vs_price_data(price_df, start_date):
 
     print("invalid start date, exiting")
     exit()
+
+
+def clean_transaction_data(transaction_df, start_date=None):
+
+    # transactions that occur before the start date
+    if start_date:
+        transaction_df = transaction_df.loc[start_date:]
+
+    return transaction_df

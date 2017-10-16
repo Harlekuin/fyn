@@ -16,6 +16,7 @@ price_data = pd.read_excel(price_data_file, index_col=0)
 income_data = pd.read_excel(income_data_file, index_col=0)
 transaction_data = pd.read_excel(transaction_data_file, index_col=0)
 
+transacton_data = fyn.cleaner.clean_transaction_data(transaction_data, start_date)
 
 fyn.cleaner.start_assets_vs_price_data(price_data, asset_dict)
 
