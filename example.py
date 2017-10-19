@@ -43,9 +43,6 @@ print(value_df)
 print("The unit count dataframe:")
 print(unit_df)
 
-exit()
-
-
 analysis = fyn.fyn(price_df=price_data, income_df=income_data)
 
 analysis.key_metrics()
