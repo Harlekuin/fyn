@@ -85,3 +85,11 @@ def value_dataframe(price_df, start_date, asset_dict):
     value_df['portfolio_value'] = value_df.sum(axis=1)
 
     return value_df
+
+
+def load_transactions(transaction_df):
+    """
+    load transactions into a dataframe
+    """
+
+    return transaction_df
